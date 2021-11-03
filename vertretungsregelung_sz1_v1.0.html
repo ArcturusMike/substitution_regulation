@@ -1,0 +1,206 @@
+<!-- Stand: 07.06.2021 -->
+<!-- © Michael Hobel -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vertretungsregelung</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 14pt;
+        }
+        button {
+            font-size: 12pt;
+        }
+        #ausgabe {
+            line-height: 150%;
+        }
+        #version {
+            position: fixed;
+            right: 5px;
+            bottom: 5px;
+            font-size: 8pt;
+            text-align: right;
+        }
+    </style>
+    <script>
+        function berechnen() {
+            var personen = ["Mitterer", "Himmelsbach", "Zwatz", "Hobel", "Valent", "Steindorfer"];
+            var monate = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
+            var anzahl = monate.length;
+            if (anzahl == 0) {
+                alert("Problem: Kein Monat fehlt");
+            }
+            else if (anzahl > 3 ) {
+                alert("Problem: Mehr als 3 Monate fehlen");
+            }
+            else if (anzahl == 1) {
+                var fehlend_id = monate[0].getAttribute("id");
+                var fehlend_name = monate[0].getAttribute("name");
+                //var telefondienst_id = parseInt(fehlend_id) + 1;
+
+                // fehlende Person aus Anwesenheitsliste entfernen
+                for (i=0; i<personen.length;i++) {
+                    if (personen[i] == fehlend_name) {
+                        personen.splice(i,1);
+                        
+                    }
+                }
+                if (fehlend_id == "02") {
+                    document.getElementById("ausgabe").innerHTML = "01. - 06." + fehlend_id + ". " + personen[0] + "<br>" + "07. - 11." + fehlend_id + ". " + personen[1] + "<br>" + "12. - 17." + fehlend_id + ". " + personen[2] + "<br>" + "18. - 22." + fehlend_id + ". " + personen[3] + "<br>" + "23. - 29." + fehlend_id + ". " + personen[4];
+                }
+                else if (fehlend_id == "04" || fehlend_id == "06") {
+                    document.getElementById("ausgabe").innerHTML = "01. - 06." + fehlend_id + ". " + personen[0] + "<br>" + "07. - 12." + fehlend_id + ". " + personen[1] + "<br>" + "13. - 18." + fehlend_id + ". " + personen[2] + "<br>" + "19. - 24." + fehlend_id + ". " + personen[3] + "<br>" + "25. - 30." + fehlend_id + ". " + personen[4];
+                }
+                else if (fehlend_id == "01") {
+                    document.getElementById("ausgabe").innerHTML = "01. - 07." + fehlend_id + ". " + personen[0] + "<br>" + "08. - 13." + fehlend_id + ". " + personen[1] + "<br>" + "14. - 19." + fehlend_id + ". " + personen[2] + "<br>" + "20. - 25." + fehlend_id + ". " + personen[3] + "<br>" + "26. - 31." + fehlend_id + ". " + personen[4];
+                } 
+                else {
+                    document.getElementById("ausgabe").innerHTML = "01. - 06." + fehlend_id + ". " + personen[0] + "<br>" + "07. - 13." + fehlend_id + ". " + personen[1] + "<br>" + "14. - 19." + fehlend_id + ". " + personen[2] + "<br>" + "20. - 25." + fehlend_id + ". " + personen[3] + "<br>" + "26. - 31." + fehlend_id + ". " + personen[4];
+                }
+            }
+            else if (anzahl == 2) {
+                var fehlend_id_1 = monate[0].getAttribute("id");
+                var fehlend_id_2 = monate[1].getAttribute("id");
+                var fehlend_name_1 = monate[0].getAttribute("name");
+                var fehlend_name_2 = monate[1].getAttribute("name");
+
+                // fehlende Person aus Anwesenheitsliste entfernen
+                for (i=0; i<personen.length;i++) {
+                    if (personen[i] == fehlend_name_1) {
+                        personen.splice(i,1);
+                    }
+                    if (personen[i] == fehlend_name_2) {
+                        personen.splice(i,1);
+                    }
+                }
+                if (fehlend_id_1 == "02") {
+                    if (parseInt(fehlend_id_2) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 14." + fehlend_id_1 + ". " + personen[0] + "<br>" + "15. - 29." + fehlend_id_1 + ". " + personen[1] + "<br>" + "01. - 15." + fehlend_id_2 + ". " + personen[2] + "<br>" + "16. - 30." + fehlend_id_2 + ". " + personen[3];
+                    }
+                    else {
+                        document.getElementById("ausgabe").innerHTML = "01. - 14." + fehlend_id_1 + ". " + personen[0] + "<br>" + "15. - 29." + fehlend_id_1 + ". " + personen[1] + "<br>" + "01. - 15." + fehlend_id_2 + ". " + personen[2] + "<br>" + "16. - 31." + fehlend_id_2 + ". " + personen[3];
+                    }
+                }
+                else if (fehlend_id_2 == "02") {
+                    document.getElementById("ausgabe").innerHTML = "01. - 15." + fehlend_id_1 + ". " + personen[0] + "<br>" + "16. - 31." + fehlend_id_1 + ". " + personen[1] + "<br>" + "01. - 14." + fehlend_id_2 + ". " + personen[2] + "<br>" + "15. - 29." + fehlend_id_2 + ". " + personen[3];
+                }
+                else if (fehlend_id_1 == "04") {
+                    document.getElementById("ausgabe").innerHTML = "01. - 15." + fehlend_id_1 + ". " + personen[0] + "<br>" + "16. - 30." + fehlend_id_1 + ". " + personen[1] + "<br>" + "01. - 15." + fehlend_id_2 + ". " + personen[2] + "<br>" + "16. - 31." + fehlend_id_2 + ". " + personen[3];
+                }
+                else if (parseInt(fehlend_id_2) % 2 == 0 && fehlend_id_2 != "02") {
+                    document.getElementById("ausgabe").innerHTML = "01. - 16." + fehlend_id_1 + ". " + personen[0] + "<br>" + "17. - 31." + fehlend_id_1 + ". " + personen[1] + "<br>" + "01. - 15." + fehlend_id_2 + ". " + personen[2] + "<br>" + "16. - 30." + fehlend_id_2 + ". " + personen[3];
+                }
+                else {
+                    document.getElementById("ausgabe").innerHTML = "01. - 16." + fehlend_id_1 + ". " + personen[0] + "<br>" + "17. - 31." + fehlend_id_1 + ". " + personen[1] + "<br>" + "01. - 15." + fehlend_id_2 + ". " + personen[2] + "<br>" + "16. - 31." + fehlend_id_2 + ". " + personen[3];
+                }
+            }
+            else if (anzahl == 3) {
+                var fehlend_id_1 = monate[0].getAttribute("id");
+                var fehlend_id_2 = monate[1].getAttribute("id");
+                var fehlend_id_3 = monate[2].getAttribute("id");
+                var fehlend_name_1 = monate[0].getAttribute("name");
+                var fehlend_name_2 = monate[1].getAttribute("name");
+                var fehlend_name_3 = monate[2].getAttribute("name");
+
+                // fehlende Person aus Anwesenheitsliste entfernen
+                for (i=0; i<personen.length;i++) {
+                    if (personen[i] == fehlend_name_1) {
+                        personen.splice(i,1);
+                    }
+                    if (personen[i] == fehlend_name_2) {
+                        personen.splice(i,1);
+                    }
+                    if (personen[i] == fehlend_name_3) {
+                        personen.splice(i,1);
+                    }
+                }
+                if (fehlend_id_1 == "02") {
+                    // 100
+                    if (parseInt(fehlend_id_2) % 2 != 0 && parseInt(fehlend_id_3) % 2 != 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 29." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 31." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 31." + fehlend_id_3 + ". " + personen[2];
+                    }
+                    // 110
+                    if (parseInt(fehlend_id_2) % 2 == 0 && parseInt(fehlend_id_3) % 2 != 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 29." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 30." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 31." + fehlend_id_3 + ". " + personen[2];
+                    }   
+                    // 101
+                    if (parseInt(fehlend_id_2) % 2 != 0 && parseInt(fehlend_id_3) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 29." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 31." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 30." + fehlend_id_3 + ". " + personen[2];
+                    }   
+                    // 111
+                    if (parseInt(fehlend_id_2) % 2 == 0 && parseInt(fehlend_id_3) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 29." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 30." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 30." + fehlend_id_3 + ". " + personen[2];
+                    }   
+                }
+                else if (fehlend_id_2 == "02") {
+                    // 010
+                    if (parseInt(fehlend_id_1) % 2 != 0 && parseInt(fehlend_id_3) % 2 != 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 31." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 29." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 31." + fehlend_id_3 + ". " + personen[2];
+                    }
+                    // 011
+                    if (parseInt(fehlend_id_1) % 2 != 0 && parseInt(fehlend_id_3) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 31." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 29." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 30." + fehlend_id_3 + ". " + personen[2];
+                    }   
+                }
+                else {
+                    // 100
+                    if (parseInt(fehlend_id_1) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 30." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 31." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 31." + fehlend_id_3 + ". " + personen[2];
+                    }
+                    // 010
+                    if (parseInt(fehlend_id_2) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 31." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 30." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 31." + fehlend_id_3 + ". " + personen[2];
+                    }
+                    // 001
+                    if (parseInt(fehlend_id_3) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 31." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 31." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 30." + fehlend_id_3 + ". " + personen[2];
+                    }
+                    // 111
+                    if (parseInt(fehlend_id_1) % 2 == 0 && parseInt(fehlend_id_2) % 2 == 0 && parseInt(fehlend_id_3) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 30." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 30." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 30." + fehlend_id_3 + ". " + personen[2];
+                    }
+                    // 000
+                    if (parseInt(fehlend_id_1) % 2 != 0 && parseInt(fehlend_id_2) % 2 != 0 && parseInt(fehlend_id_3) % 2 != 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 31." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 31." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 31." + fehlend_id_3 + ". " + personen[2];
+                    }
+                    // 110
+                    if (parseInt(fehlend_id_1) % 2 == 0 && parseInt(fehlend_id_2) % 2 == 0 && parseInt(fehlend_id_3) % 2 != 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 30." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 30." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 31." + fehlend_id_3 + ". " + personen[2];
+                    }
+                    // 011
+                    if (parseInt(fehlend_id_1) % 2 != 0 && parseInt(fehlend_id_2) % 2 == 0 && parseInt(fehlend_id_3) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 31." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 30." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 30." + fehlend_id_3 + ". " + personen[2];
+                    }
+                    // 101
+                    if (parseInt(fehlend_id_1) % 2 == 0 && parseInt(fehlend_id_2) % 2 != 0 && parseInt(fehlend_id_3) % 2 == 0) {
+                        document.getElementById("ausgabe").innerHTML = "01. - 30." + fehlend_id_1 + ". " + personen[0] + "<br>" + "01. - 31." + fehlend_id_2 + ". " + personen[1] + "<br>" + "01. - 30." + fehlend_id_3 + ". " + personen[2];
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Vertretungsregelung</h1>
+<h3>Fehlende Monate: </h3>
+<p><label for="01">Januar (Mitterer)</label> <input type="checkbox" id="01" value="Januar" name="Mitterer"></p>
+<p><label for="02">Februar (Himmelsbach)</label> <input type="checkbox" id="02" value="Februar" name="Himmelsbach"></p>
+<p><label for="03">März (Zwatz)</label> <input type="checkbox" id="03" value="März" name="Zwatz"></p>
+<p><label for="04">April (Hobel)</label> <input type="checkbox" id="04" value="April" name="Hobel"></p>
+<p><label for="05">Mai (Valent)</label> <input type="checkbox" id="05" value="Mai" name="Valent"></p>
+<p><label for="06">Juni (Steindorfer)</label> <input type="checkbox" id="06" value="Juni" name="Steindorfer"></p>
+
+<p><button onclick="berechnen()">Vertretungen anzeigen</button></p>
+<br>
+<div id="ausgabe"></div>
+<div id="version">
+    <span>Version 1.0</span>
+    <br>
+    <span>© Michael Hobel</span>
+</div>
+</body>
+</html>
