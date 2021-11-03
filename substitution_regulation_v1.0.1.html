@@ -1,0 +1,216 @@
+<!-- Stand: 07.06.2021 -->
+<!-- © Michael H. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Substitution regulation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 14pt;
+        }
+        .checkboxes {
+            width: 15px;
+            height: 15px;
+        }
+        button {
+            font-size: 15pt;
+            background-color: #7DD777;
+            padding: 7px;
+            border-radius: 5px;
+            border: 1px solid black
+        }
+        button:hover {
+            cursor: pointer;
+        }
+        #output {
+            line-height: 150%;
+        }
+        #version {
+            position: fixed;
+            right: 5px;
+            bottom: 5px;
+            font-size: 8pt;
+            text-align: right;
+        }
+    </style>
+    <script>
+        function berechnen() {
+            var people = ["Smith", "Jones", "Brown", "Sparrow", "Fish", "Walker"];
+            var months = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
+            var number = months.length;
+            if (number == 0) {
+                alert("Problem: No month missing");
+            }
+            else if (number > 3 ) {
+                alert("Problem: More than 3 months missing");
+            }
+            else if (number == 1) {
+                var missing_id = months[0].getAttribute("id");
+                var missing_name = months[0].getAttribute("name");
+
+                // delete missing people from list
+                for (i=0; i<people.length;i++) {
+                    if (people[i] == missing_name) {
+                        people.splice(i,1);
+                        
+                    }
+                }
+                if (missing_id == "02") {
+                    document.getElementById("output").innerHTML = "01. - 06." + missing_id + ". " + people[0] + "<br>" + "07. - 11." + missing_id + ". " + people[1] + "<br>" + "12. - 17." + missing_id + ". " + people[2] + "<br>" + "18. - 22." + missing_id + ". " + people[3] + "<br>" + "23. - 29." + missing_id + ". " + people[4];
+                }
+                else if (missing_id == "04" || missing_id == "06") {
+                    document.getElementById("output").innerHTML = "01. - 06." + missing_id + ". " + people[0] + "<br>" + "07. - 12." + missing_id + ". " + people[1] + "<br>" + "13. - 18." + missing_id + ". " + people[2] + "<br>" + "19. - 24." + missing_id + ". " + people[3] + "<br>" + "25. - 30." + missing_id + ". " + people[4];
+                }
+                else if (missing_id == "01") {
+                    document.getElementById("output").innerHTML = "01. - 07." + missing_id + ". " + people[0] + "<br>" + "08. - 13." + missing_id + ". " + people[1] + "<br>" + "14. - 19." + missing_id + ". " + people[2] + "<br>" + "20. - 25." + missing_id + ". " + people[3] + "<br>" + "26. - 31." + missing_id + ". " + people[4];
+                } 
+                else {
+                    document.getElementById("output").innerHTML = "01. - 06." + missing_id + ". " + people[0] + "<br>" + "07. - 13." + missing_id + ". " + people[1] + "<br>" + "14. - 19." + missing_id + ". " + people[2] + "<br>" + "20. - 25." + missing_id + ". " + people[3] + "<br>" + "26. - 31." + missing_id + ". " + people[4];
+                }
+            }
+            else if (number == 2) {
+                var missing_id_1 = months[0].getAttribute("id");
+                var missing_id_2 = months[1].getAttribute("id");
+                var missing_name_1 = months[0].getAttribute("name");
+                var missing_name_2 = months[1].getAttribute("name");
+
+                // delete missing people from list
+                for (i=0; i<people.length;i++) {
+                    if (people[i] == missing_name_1) {
+                        people.splice(i,1);
+                    }
+                    if (people[i] == missing_name_2) {
+                        people.splice(i,1);
+                    }
+                }
+                if (missing_id_1 == "02") {
+                    if (parseInt(missing_id_2) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 14." + missing_id_1 + ". " + people[0] + "<br>" + "15. - 29." + missing_id_1 + ". " + people[1] + "<br>" + "01. - 15." + missing_id_2 + ". " + people[2] + "<br>" + "16. - 30." + missing_id_2 + ". " + people[3];
+                    }
+                    else {
+                        document.getElementById("output").innerHTML = "01. - 14." + missing_id_1 + ". " + people[0] + "<br>" + "15. - 29." + missing_id_1 + ". " + people[1] + "<br>" + "01. - 15." + missing_id_2 + ". " + people[2] + "<br>" + "16. - 31." + missing_id_2 + ". " + people[3];
+                    }
+                }
+                else if (missing_id_2 == "02") {
+                    document.getElementById("output").innerHTML = "01. - 15." + missing_id_1 + ". " + people[0] + "<br>" + "16. - 31." + missing_id_1 + ". " + people[1] + "<br>" + "01. - 14." + missing_id_2 + ". " + people[2] + "<br>" + "15. - 29." + missing_id_2 + ". " + people[3];
+                }
+                else if (missing_id_1 == "04") {
+                    document.getElementById("output").innerHTML = "01. - 15." + missing_id_1 + ". " + people[0] + "<br>" + "16. - 30." + missing_id_1 + ". " + people[1] + "<br>" + "01. - 15." + missing_id_2 + ". " + people[2] + "<br>" + "16. - 31." + missing_id_2 + ". " + people[3];
+                }
+                else if (parseInt(missing_id_2) % 2 == 0 && missing_id_2 != "02") {
+                    document.getElementById("output").innerHTML = "01. - 16." + missing_id_1 + ". " + people[0] + "<br>" + "17. - 31." + missing_id_1 + ". " + people[1] + "<br>" + "01. - 15." + missing_id_2 + ". " + people[2] + "<br>" + "16. - 30." + missing_id_2 + ". " + people[3];
+                }
+                else {
+                    document.getElementById("output").innerHTML = "01. - 16." + missing_id_1 + ". " + people[0] + "<br>" + "17. - 31." + missing_id_1 + ". " + people[1] + "<br>" + "01. - 15." + missing_id_2 + ". " + people[2] + "<br>" + "16. - 31." + missing_id_2 + ". " + people[3];
+                }
+            }
+            else if (number == 3) {
+                var missing_id_1 = months[0].getAttribute("id");
+                var missing_id_2 = months[1].getAttribute("id");
+                var missing_id_3 = months[2].getAttribute("id");
+                var missing_name_1 = months[0].getAttribute("name");
+                var missing_name_2 = months[1].getAttribute("name");
+                var missing_name_3 = months[2].getAttribute("name");
+
+                // delete missing people from list
+                for (i=0; i<people.length;i++) {
+                    if (people[i] == missing_name_1) {
+                        people.splice(i,1);
+                    }
+                    if (people[i] == missing_name_2) {
+                        people.splice(i,1);
+                    }
+                    if (people[i] == missing_name_3) {
+                        people.splice(i,1);
+                    }
+                }
+                if (missing_id_1 == "02") {
+                    // 100
+                    if (parseInt(missing_id_2) % 2 != 0 && parseInt(missing_id_3) % 2 != 0) {
+                        document.getElementById("output").innerHTML = "01. - 29." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 31." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 31." + missing_id_3 + ". " + people[2];
+                    }
+                    // 110
+                    if (parseInt(missing_id_2) % 2 == 0 && parseInt(missing_id_3) % 2 != 0) {
+                        document.getElementById("output").innerHTML = "01. - 29." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 30." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 31." + missing_id_3 + ". " + people[2];
+                    }   
+                    // 101
+                    if (parseInt(missing_id_2) % 2 != 0 && parseInt(missing_id_3) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 29." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 31." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 30." + missing_id_3 + ". " + people[2];
+                    }   
+                    // 111
+                    if (parseInt(missing_id_2) % 2 == 0 && parseInt(missing_id_3) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 29." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 30." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 30." + missing_id_3 + ". " + people[2];
+                    }   
+                }
+                else if (missing_id_2 == "02") {
+                    // 010
+                    if (parseInt(missing_id_1) % 2 != 0 && parseInt(missing_id_3) % 2 != 0) {
+                        document.getElementById("output").innerHTML = "01. - 31." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 29." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 31." + missing_id_3 + ". " + people[2];
+                    }
+                    // 011
+                    if (parseInt(missing_id_1) % 2 != 0 && parseInt(missing_id_3) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 31." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 29." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 30." + missing_id_3 + ". " + people[2];
+                    }   
+                }
+                else {
+                    // 100
+                    if (parseInt(missing_id_1) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 30." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 31." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 31." + missing_id_3 + ". " + people[2];
+                    }
+                    // 010
+                    if (parseInt(missing_id_2) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 31." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 30." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 31." + missing_id_3 + ". " + people[2];
+                    }
+                    // 001
+                    if (parseInt(missing_id_3) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 31." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 31." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 30." + missing_id_3 + ". " + people[2];
+                    }
+                    // 111
+                    if (parseInt(missing_id_1) % 2 == 0 && parseInt(missing_id_2) % 2 == 0 && parseInt(missing_id_3) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 30." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 30." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 30." + missing_id_3 + ". " + people[2];
+                    }
+                    // 000
+                    if (parseInt(missing_id_1) % 2 != 0 && parseInt(missing_id_2) % 2 != 0 && parseInt(missing_id_3) % 2 != 0) {
+                        document.getElementById("output").innerHTML = "01. - 31." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 31." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 31." + missing_id_3 + ". " + people[2];
+                    }
+                    // 110
+                    if (parseInt(missing_id_1) % 2 == 0 && parseInt(missing_id_2) % 2 == 0 && parseInt(missing_id_3) % 2 != 0) {
+                        document.getElementById("output").innerHTML = "01. - 30." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 30." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 31." + missing_id_3 + ". " + people[2];
+                    }
+                    // 011
+                    if (parseInt(missing_id_1) % 2 != 0 && parseInt(missing_id_2) % 2 == 0 && parseInt(missing_id_3) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 31." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 30." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 30." + missing_id_3 + ". " + people[2];
+                    }
+                    // 101
+                    if (parseInt(missing_id_1) % 2 == 0 && parseInt(missing_id_2) % 2 != 0 && parseInt(missing_id_3) % 2 == 0) {
+                        document.getElementById("output").innerHTML = "01. - 30." + missing_id_1 + ". " + people[0] + "<br>" + "01. - 31." + missing_id_2 + ". " + people[1] + "<br>" + "01. - 30." + missing_id_3 + ". " + people[2];
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Substitution regulation</h1>
+<h3>Missing months: </h3>
+<p><label for="01">January (Smith)</label> <input type="checkbox" class="checkboxes" id="01" name="Smith"></p>
+<p><label for="02">February (Jones)</label> <input type="checkbox" class="checkboxes" id="02" name="Jones"></p>
+<p><label for="03">March (Brown)</label> <input type="checkbox" class="checkboxes" id="03" name="Brown"></p>
+<p><label for="04">April (Sparrow)</label> <input type="checkbox" class="checkboxes" id="04" name="Sparrow"></p>
+<p><label for="05">May (Fish)</label> <input type="checkbox" class="checkboxes" id="05" name="Fish"></p>
+<p><label for="06">June (Walker)</label> <input type="checkbox" class="checkboxes" id="06" name="Walker"></p>
+
+<p><button onclick="berechnen()">Show substitutions</button></p>
+<br>
+<div id="output"></div>
+<div id="version">
+    <span>Version 1.0.1</span>
+    <br>
+    <span>© Michael H.</span>
+</div>
+</body>
+</html>
